@@ -1,0 +1,15 @@
+
+# TODO: create conf file
+
+FROM debian
+
+RUN apt-get update && apt-get upgrade -y
+
+RUN apt-get install -y curl php php7.4-fpm php-mysql mariadb-client netcat
+
+# copy configuration script from host to container
+COPY ./wp_conf.sh /
+
+RUN  chmod +x wp_conf.sh
+
+ENTRYPOINT ["./wp_conf.sh"]
