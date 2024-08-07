@@ -11,8 +11,11 @@ services:
       - "80:80"
     volumes:
       - ./web:/var/www/html
+    env_file :
+      - .env
     networks:
       - inception_net
+    restart: always
 
   wordpress:
     build: ./requirements/wordpress/
@@ -21,14 +24,25 @@ services:
       - mariadb
     volumes:
       - ./web:/var/www/html
+    env_file :
+      - .env
     networks:
       - inception_net
+    restart: always
 
   mariadb:
     build: ./requirements/mariadb/
     container_name: mariadb
+    volumes:
+      - mariadb:/var/lib/mysql
+    env_file :
+      - .env
     networks:
       - inception_net
+    restart: always
+
+volumes:
+  mariadb:
 
 networks:
   inception_net:
