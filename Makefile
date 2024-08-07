@@ -17,4 +17,7 @@ clean:
 	# rm -rf ./srcs/web
 	# mkdir ./srcs/web
 
-.PHONY: all re down up clean
+clean_volumes:
+	@docker volume rm $$(docker volume ls -q);
+
+.PHONY: all re down up clean clean_volumes
