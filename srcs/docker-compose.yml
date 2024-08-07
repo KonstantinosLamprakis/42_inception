@@ -6,7 +6,8 @@ services:
     build: ./requirements/nginx/
     container_name: nginx
     depends_on:
-      - wordpress
+      wordpress:
+        condition: service_started
     ports:
       - "443:443"
     volumes:
@@ -22,7 +23,8 @@ services:
     build: ./requirements/wordpress/
     container_name: wordpress
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     volumes:
       - web:/var/www/html
       # - /home/klamprak/data/web:/var/www/html
@@ -43,6 +45,12 @@ services:
     networks:
       - inception_net
     restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      retries: 5
+      start_period: 5s
+      timeout: 10s
 
 # need to delete them on production with bind mounts
 volumes:
