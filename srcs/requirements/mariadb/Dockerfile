@@ -5,12 +5,11 @@ RUN apt-get update && apt-get upgrade -y
 
 RUN apt-get install -y mariadb-server
 
-# change default configuration file
 COPY 50-server.cnf /etc/mysql/mariadb.conf.d/.
 
-# create a db for wordpress
-COPY init.sql /etc/mysql/init.sql
+COPY script.sh ./script.sh
+RUN chmod +x script.sh
 
 RUN mkdir /run/mysqld
 
-CMD ["mysqld"]
+CMD [ "./script.sh" ]
