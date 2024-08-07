@@ -48,7 +48,7 @@ server {
 	index index.php index.html index.htm index.nginx-debian.html;
 
 	# server_name _;
-	server_name $WP_DOMAIN;
+	server_name WP_DOMAIN;
 
 	location / {
 		# First attempt to serve request as file, then
