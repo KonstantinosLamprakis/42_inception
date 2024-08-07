@@ -23,4 +23,5 @@ COPY script.sh .
 RUN chmod +x script.sh
 
 # -F in order to run in Foreground and docker not terminate the container
-CMD ["php-fpm8.2", "-F"]
+# CMD ["php-fpm8.2", "-F"]
+CMD ["./script.sh"]

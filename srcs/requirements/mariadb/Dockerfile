@@ -1,16 +1,16 @@
 
-# TODO: create conf file
-
 FROM debian
 
 RUN apt-get update && apt-get upgrade -y
 
 RUN apt-get install -y mariadb-server
 
-# copy configuration file from host to container
-COPY ./mdb-conf.sh /mdb-conf.sh
+# change default configuration file
+COPY 50-server.cnf /etc/mysql/mariadb.conf.d/.
 
-RUN chmod +x /mdb-conf.sh
+# create a db for wordpress
+COPY init.sql /etc/mysql/init.sql
 
-# entrypoint command to run as a starting point
-ENTRYPOINT ["./mdb-conf.sh"]
+RUN mkdir /run/mysqld
+
+CMD ["mysqld"]
