@@ -10,7 +10,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./web:/var/www/html
+      - web:/var/www/html
     env_file :
       - .env
     networks:
@@ -23,7 +23,7 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - ./web:/var/www/html
+      - web:/var/www/html
     env_file :
       - .env
     networks:
@@ -34,7 +34,7 @@ services:
     build: ./requirements/mariadb/
     container_name: mariadb
     volumes:
-      - mariadb:/var/lib/mysql
+      - db_files:/var/lib/mysql
     env_file :
       - .env
     networks:
@@ -42,7 +42,8 @@ services:
     restart: always
 
 volumes:
-  mariadb:
+  db_files:
+  web:
 
 networks:
   inception_net:
