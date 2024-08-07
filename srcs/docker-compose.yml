@@ -11,6 +11,7 @@ services:
       - "443:443"
     volumes:
       - web:/var/www/html
+      # - /home/klamprak/data/web:/var/www/html
     env_file :
       - .env
     networks:
@@ -24,6 +25,7 @@ services:
       - mariadb
     volumes:
       - web:/var/www/html
+      # - /home/klamprak/data/web:/var/www/html
     env_file :
       - .env
     networks:
@@ -35,12 +37,14 @@ services:
     container_name: mariadb
     volumes:
       - db_files:/var/lib/mysql
+      # - /home/klamprak/data/db_files:/var/lib/mysql
     env_file :
       - .env
     networks:
       - inception_net
     restart: always
 
+# need to delete them on production with bind mounts
 volumes:
   db_files:
   web:
