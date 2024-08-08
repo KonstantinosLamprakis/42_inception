@@ -6,13 +6,12 @@ services:
     build: ./requirements/nginx/
     container_name: nginx
     depends_on:
-      wordpress:
-        condition: service_started
+      - wordpress
     ports:
       - "443:443"
     volumes:
       - web:/var/www/html
-      # - /home/klamprak/data/web:/var/www/html
+      # - /home/osboxes/data/web:/var/www/html
     env_file :
       - .env
     networks:
@@ -23,11 +22,10 @@ services:
     build: ./requirements/wordpress/
     container_name: wordpress
     depends_on:
-      mariadb:
-        condition: service_healthy
+      - mariadb
     volumes:
       - web:/var/www/html
-      # - /home/klamprak/data/web:/var/www/html
+      # - /home/osboxes/data/web:/var/www/html
     env_file :
       - .env
     networks:
@@ -39,18 +37,12 @@ services:
     container_name: mariadb
     volumes:
       - db_files:/var/lib/mysql
-      # - /home/klamprak/data/db_files:/var/lib/mysql
+      # - /home/osboxes/data/db_files:/var/lib/mysql
     env_file :
       - .env
     networks:
       - inception_net
     restart: always
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 5s
-      retries: 5
-      start_period: 5s
-      timeout: 10s
 
 # need to delete them on production with bind mounts
 volumes:
