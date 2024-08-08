@@ -10,8 +10,8 @@ services:
     ports:
       - "443:443"
     volumes:
-      - web:/var/www/html
-      # - /home/osboxes/data/web:/var/www/html
+      - /home/osboxes/data/web:/var/www/html
+      # - web:/var/www/html
     env_file :
       - .env
     networks:
@@ -24,8 +24,8 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - web:/var/www/html
-      # - /home/osboxes/data/web:/var/www/html
+      - /home/osboxes/data/web:/var/www/html
+      # - web:/var/www/html
     env_file :
       - .env
     networks:
@@ -36,8 +36,8 @@ services:
     build: ./requirements/mariadb/
     container_name: mariadb
     volumes:
-      - db_files:/var/lib/mysql
-      # - /home/osboxes/data/db_files:/var/lib/mysql
+      - /home/osboxes/data/db_files:/var/lib/mysql
+      # - db_files:/var/lib/mysql
     env_file :
       - .env
     networks:
@@ -45,9 +45,9 @@ services:
     restart: always
 
 # need to delete them on production with bind mounts
-volumes:
-  db_files:
-  web:
+# volumes:
+#   db_files:
+#   web:
 
 networks:
   inception_net:
